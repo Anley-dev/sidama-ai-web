@@ -2,8 +2,8 @@ const input = document.getElementById("input");
 const messages = document.getElementById("messages");
 
 // Show initial welcome message when the script loads
-messages.innerHTML += `<div class="msg ai">Hello! I am Sidama AI.</div>`;
-
+messages.innerHTML += `<div class="msg ai">Hello! I am Sidama AI. Ask me anything.</div>`;
+messages.scrollTop = messages.scrollHeight;
 function sendMessage() {
     let text = input.value.trim();
     if (!text) return;
