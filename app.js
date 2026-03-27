@@ -48,15 +48,31 @@ function sendMessage() {
 }
 
 function getReply(text) {
-  text = text.toLowerCase();
+  text = text.toLowerCase().trim();
 
-  if (text.includes("hi")) return "Hi! How can I help?";
-  if (text.includes("hello")) return "Hello!";
-  if (text.includes("who")) return "I am a Sidama AI assistant.";
+  // greetings
+  if (text === "hi" || text === "hello") {
+    return "Hi! How can I help you?";
+  }
 
-  return "I am still learning...";
+  if (text.includes("how are you")) {
+    return "I am good. How about you?";
+  }
+
+  if (text.includes("who are you")) {
+    return "I am Sidama AI assistant.";
+  }
+
+  if (text.includes("what")) {
+    return "I am learning many things step by step.";
+  }
+
+  if (text.includes("thanks")) {
+    return "You are welcome!";
+  }
+
+  return "I am still learning. Try simple questions.";
 }
-
 function clearChat() {
   messages.innerHTML = "";
 }
