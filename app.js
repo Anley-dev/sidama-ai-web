@@ -9,11 +9,21 @@ function sendMessage() {
     if (!text) return;
 
     // 1. Display User Message
-    messages.innerHTML += `<div class="msg user">${text}</div>`;
+    messages.innerHTML += `
+<div class="row ai-row">
+  <div class="avatar">🤖</div>
+  <div class="msg ai">${reply}</div>
+</div>`;
     input.value = "";
     
     // 2. Show Typing Indicator
-    messages.innerHTML += `<div class="msg ai" id="typing">Sidama AI is typing</div>`;
+    messages.innerHTML += `
+<div class="row ai-row" id="typing">
+  <div class="avatar">🤖</div>
+  <div class="msg ai typing">
+    <span></span><span></span><span></span>
+  </div>
+</div>`;
     messages.scrollTop = messages.scrollHeight;
 
     // 3. Wait 1.2 seconds, then show AI reply
