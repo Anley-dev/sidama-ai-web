@@ -41,13 +41,21 @@ h2 {
 
 .user {
   background: linear-gradient(135deg, #3b82f6, #2563eb);
-  margin-left: auto;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 16px;
   border-bottom-right-radius: 4px;
+  max-width: 70%;
+  word-wrap: break-word;
 }
 
 .ai {
   background: #374151;
+  padding: 10px 14px;
+  border-radius: 16px;
   border-bottom-left-radius: 4px;
+  max-width: 70%;
+  word-wrap: break-word;
 }
 
 .input-area {
@@ -62,6 +70,7 @@ input {
   padding: 10px;
   border: none;
   border-radius: 6px;
+  font-size: 14px;
 }
 
 button {
@@ -74,7 +83,8 @@ button {
 }
 .row {
   display: flex;
-  align-items: flex-end;
+  width: 100%;
+  margin: 4px 0;
 }
 
 .user-row {
@@ -82,6 +92,8 @@ button {
 }
 
 .ai-row {
+  display: flex;
+  align-items: flex-end;
   gap: 6px;
 }
 
