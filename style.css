@@ -1,32 +1,34 @@
 body {
   margin: 0;
-  background: #0f172a;
   font-family: Arial;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
   color: white;
+  display: flex;
+  justify-content: center;
 }
 .chat {
   width: 100%;
   max-width: 420px;
-  backdrop-filter: blur(10px);
-  background: rgba(30, 41, 59, 0.8);
-  border-radius: 12px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(12px);
+  background: rgba(30, 41, 59, 0.7);
 }
 
 h2 {
-  text-align: center;
-  padding: 10px;
-  background: #1e293b;
   margin: 0;
+  padding: 12px;
+  text-align: center;
+  background: rgba(0,0,0,0.2);
+  font-size: 16px;
+  letter-spacing: 0.5px;
 }
 
-#messages {
-  display: flex;
-  flex-direction: column;
+
+  #messages {
   flex: 1;
-  gap: 6px;
   padding: 10px;
-  overflow-y: auto;
-}
   overflow-y: auto;
 }
 
@@ -61,24 +63,23 @@ h2 {
 .input-area {
   display: flex;
   padding: 10px;
-  background: #1e293b;
-  gap: 5px;
+  background: rgba(0,0,0,0.2);
+  gap: 6px;
 }
-
 input {
   flex: 1;
-  padding: 10px;
+  padding: 12px;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
+  outline: none;
   font-size: 14px;
 }
-
 button {
-  padding: 10px;
-  background: #22c55e;
+  padding: 10px 14px;
   border: none;
+  border-radius: 10px;
+  background: #22c55e;
   color: white;
-  border-radius: 8px;
   font-size: 13px;
 }
 .row {
