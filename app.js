@@ -162,3 +162,9 @@ function clearChat() {
   window.onload(); 
 }
 
+// This ensures the button works even if the HTML attribute fails
+document.querySelector('.send-btn').addEventListener('click', function(e) {
+  e.preventDefault(); // Prevents page refresh
+  sendMessage();
+});
+
