@@ -50,43 +50,115 @@ function sendMessage() {
 function getReply(text) {
   text = text.toLowerCase().trim();
 
-  // greetings
-  if (text.includes("hi") || text.includes("hello")) {
-    return "Hi! How can I help you?";
+  // ===== GREETINGS =====
+  if (text.includes("hello") || text.includes("hi") || text.includes("goodbye")) {
+    return "Keereho (Hello / Goodbye)";
   }
 
-  // questions
+  if (text.includes("good morning")) {
+    return "Keere gallito (male) / gallita (female)";
+  }
+
+  if (text.includes("good evening")) {
+    return "Keere hosito (male) / hosita (female)";
+  }
+
   if (text.includes("how are you")) {
-    return "I am doing well. How about you?";
+    return "Hittonni nootto? (male) / nootta? (female)";
   }
 
-  if (text.includes("who are you")) {
-    return "I am Sidama AI assistant.";
+  // ===== INTRODUCTION =====
+  if (text.includes("my name is")) {
+    return "Ane su'mi ... / Ani ... (My name is ...)";
   }
 
-  if (text.includes("what are you learning")) {
-    return "I am learning language, chat, and helping users like you.";
+  if (text.includes("what is your name")) {
+    return "Ate su'mi ayeti?";
   }
 
-  if (text.includes("what")) {
-    return "Can you ask more clearly? I am still learning.";
+  // ===== COMMON QUESTIONS =====
+  if (text.includes("speak sidama")) {
+    return "Sidaamufo eggennoto?";
   }
 
-  // reactions
-  if (text.includes("wow") || text.includes("great")) {
-    return "Glad you like it!";
+  if (text.includes("how much")) {
+    return "Kuni mee'e birreti? / Kuni maaggeshati?";
   }
 
-  if (text.includes("thanks")) {
-    return "You are welcome!";
+  if (text.includes("what time")) {
+    return "Mee-ae sateeti?";
   }
 
-  if (text.includes("really")) {
-    return "Yes. I am improving step by step.";
+  if (text.includes("coffee")) {
+    return "Buna baxaatto? (male) / baxaatta? (female)";
   }
 
-  // default
-  return "I am still learning. Try asking about me or simple questions.";
+  if (text.includes("homework") || text.includes("help")) {
+    return "Kaa'llo has'rratto mini-losira?";
+  }
+
+  // ===== DAILY LIFE =====
+  if (text.includes("get up")) {
+    return "Kaa-iy baaloo (one) / Kaa'e ballo (group)";
+  }
+
+  if (text.includes("sleep")) {
+    return "Dancha gede goxito?";
+  }
+
+  if (text.includes("wash")) {
+    return "Angaaki haashi'ri / Angaa'ne haashi're";
+  }
+
+  if (text.includes("eat") || text.includes("breakfast")) {
+    return "Soodoo-guuti sagale eati";
+  }
+
+  if (text.includes("thirsty")) {
+    return "Go'roto? (male) / Go'rota? (female)";
+  }
+
+  if (text.includes("hungry")) {
+    return "Hudi'roto? (male) / Hudi'rota? (female)";
+  }
+
+  // ===== POLITE =====
+  if (text.includes("thank")) {
+    return "Galateemoe (male) / Galateemahe (female)";
+  }
+
+  if (text.includes("love")) {
+    return "Baxeemoe (male) / Baxeemahe (female)";
+  }
+
+  if (text.includes("sorry")) {
+    return "Dhiifama";
+  }
+
+  if (text.includes("understand")) {
+    return "Yottotta di-maachchishommo. Dawartee yi ballo.";
+  }
+
+  if (text.includes("road") || text.includes("hawassa")) {
+    return "Hawasirra mastanoo doogo hiiteeti?";
+  }
+
+  // ===== NUMBERS =====
+  if (text === "one") return "Mite";
+  if (text === "two") return "Lame";
+  if (text === "three") return "Sase";
+  if (text === "four") return "Shole";
+  if (text === "five") return "Onte";
+  if (text === "six") return "Lee";
+  if (text === "seven") return "Lamala";
+  if (text === "eight") return "Sette";
+  if (text === "nine") return "Honse";
+  if (text === "ten") return "Tonne";
+  if (text === "twenty") return "Lemo";
+  if (text === "hundred") return "Xibbee";
+
+  // ===== DEFAULT =====
+  return "Try: hello, good morning, thank you, hungry, coffee, numbers.";
 }
 function clearChat() {
   messages.innerHTML = "";
