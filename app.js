@@ -46,28 +46,42 @@ function sendMessage() {
     messages.scrollTop = messages.scrollHeight;
   }, 1200);
 }
-
 const dataset = {
+  // greetings
   "hello": "Keereho",
   "hi": "Keereho",
+  "goodbye": "Keereho",
   "good morning": "Keere gallito / gallita",
   "good evening": "Keere hosito / hosita",
-  "how are you": "Hittonni nootto? / nootta?",
-  "my name is": "Ane su'mi ...",
-  "what is your name": "Ate su'mi ayeti?",
-  "speak sidama": "Sidaamufo eggennoto?",
-  "how much": "Kuni mee'e birreti?",
-  "what time": "Mee-ae sateeti?",
-  "coffee": "Buna baxaatto / baxaatta",
-  "hungry": "Hudi'roto? / Hudi'rota?",
-  "thirsty": "Go'roto? / Go'rota?",
-  "wash hands": "Angaaki haashi'ri",
-  "thank you": "Galateemoe / Galateemahe",
-  "love": "Baxeemoe / Baxeemahe",
-  "sorry": "Dhiifama",
-  "help": "Kaa'llo has'rratto?",
-  "road": "Hawasirra mastanoo doogo hiiteeti?",
 
+  // introduction
+  "how are you": "Hittonni nootto? / nootta?",
+  "my name is": "Ane su'mi ... / Ani ...",
+  "what is your name": "Ate su'mi ayeti?",
+
+  // questions
+  "do you speak sidama": "Sidaamufo eggennoto?",
+  "how much is this": "Kuni mee'e birreti? / Kuni maaggeshati?",
+  "what time is it": "Mee-ae sateeti?",
+  "do you like coffee": "Buna baxaatto? / baxaatta?",
+  "help homework": "Kaa'llo has'rratto mini-losira?",
+
+  // daily
+  "get up": "Kaa-iy baaloo / Kaa'e ballo",
+  "sleep well": "Dancha gede goxito?",
+  "wash your hands": "Angaaki haashi'ri / Angaa'ne haashi're",
+  "eat breakfast": "Soodoo-guuti sagale eati",
+  "thirsty": "Go'roto? / Go'rota?",
+  "hungry": "Hudi'roto? / Hudi'rota?",
+
+  // polite
+  "i love you": "Baxeemoe / Baxeemahe",
+  "thank you": "Galateemoe / Galateemahe",
+  "sorry": "Dhiifama",
+  "i did not understand": "Yottotta di-maachchishommo. Dawartee yi ballo.",
+  "road to hawassa": "Hawasirra mastanoo doogo hiiteeti?",
+
+  // numbers
   "one": "Mite",
   "two": "Lame",
   "three": "Sase",
@@ -77,25 +91,33 @@ const dataset = {
   "seven": "Lamala",
   "eight": "Sette",
   "nine": "Honse",
-  "ten": "Tonne"
+  "ten": "Tonne",
+  "twenty": "Lemo",
+  "hundred": "Xibbee"
 };
+
  function getReply(text) {
   text = text.toLowerCase().trim();
 
-  // exact match
+  // exact match first
   if (dataset[text]) {
     return dataset[text];
   }
 
-  // partial match
+  // better partial match
+  let bestMatch = null;
+
   for (let key in dataset) {
     if (text.includes(key)) {
-      return dataset[key];
+      bestMatch = dataset[key];
+      break;
     }
   }
 
-  return "Not found. Try simple words like hello, coffee, one.";
-} 
+  if (bestMatch) return bestMatch;
+
+  return "Not found. Try simple phrases like hello, thank you, coffee, numbers.I am still learning😊...";
+}
 function clearChat() {
   messages.innerHTML = "";
 }
