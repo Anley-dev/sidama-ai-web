@@ -178,12 +178,14 @@ body {
   z-index: 200;
 }
 
-/* ====================== INPUT AREA ====================== */
+/* ====================== NEW INPUT AREA (REPLACE OLD ONE) ====================== */
 .input-container {
-  position: absolute;
+  position: fixed; 
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 800px; 
   padding: 20px 24px 28px;
   background: linear-gradient(transparent, #212121 30%, #212121 100%);
   z-index: 200;
@@ -191,37 +193,36 @@ body {
 
 .input-area {
   position: relative;
-  max-width: 768px;
-  width: 100%; /* Changed to 100% since max-width handles it */
-  margin: 0 auto;
+  width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-end; 
 }
 
-input {
+textarea {
   width: 100%;
   padding: 14px 50px 14px 16px; 
   background: #2f2f2f;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   color: white;
-  font-size: 16px;
+  font-size: 16px; 
   outline: none;
-  transition: border 0.2s ease;
+  resize: none;
+  font-family: inherit;
+  overflow-y: hidden;
+  min-height: 52px;
+  max-height: 150px;
+  line-height: 1.5;
 }
 
-/*The ID selector to match your HTML id="input" */
-input:focus {
+textarea:focus {
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .send-btn {
   position: absolute;
-  right: 8px;
-  /* Vertically center the button */
-  top: 50%;
-  transform: translateY(-50%);
-  
+  right: 10px;
+  bottom: 10px;
   background: white;
   color: black;
   border: none;
@@ -234,21 +235,6 @@ input:focus {
   cursor: pointer;
   z-index: 10;
   transition: all 0.2s ease;
-}
-
-.send-btn:hover {
-  background: #e5e5e5;
-  transform: translateY(-50%) scale(1.05); /* Keep the Y centering during scale */
-}
-
-.send-btn:active {
-  transform: translateY(-50%) scale(0.95);
-}
-
-.send-btn svg {
-  width: 18px;
-  height: 18px;
-  pointer-events: none; /* Crucial: clicks go through to the button */
 }
 
 /* ====================== TYPING INDICATOR ====================== */

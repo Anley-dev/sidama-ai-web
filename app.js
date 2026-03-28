@@ -1,5 +1,30 @@
 const input = document.getElementById("input");
 const messages = document.getElementById("messages");
+//  this function to make the box grow
+function autoGrow(element) {
+  element.style.height = "52px"; 
+  element.style.height = (element.scrollHeight) + "px";
+}
+
+//  this handle the "Enter" key and "Send" button
+document.addEventListener('DOMContentLoaded', () => {
+    const inputField = document.getElementById("input");
+    const sendButton = document.getElementById("send-button");
+
+    inputField.addEventListener("keydown", function(e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+        this.style.height = "52px";
+      }
+    });
+
+    sendButton.addEventListener("click", () => {
+      sendMessage();
+      inputField.style.height = "52px";
+      inputField.focus();
+    });
+});
 
 // --- 1. Welcome Message on Load ---
 window.onload = function () {
