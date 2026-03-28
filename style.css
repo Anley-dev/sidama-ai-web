@@ -182,55 +182,55 @@ body {
   z-index: 200;
 }
 
+/* Container for the input and button */
 .input-area {
-  position: relative;
-  max-width: 760px;
+  position: relative; /* This is the anchor for the button */
+  max-width: 768px;
+  width: 95%;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
 }
-
-#user-input {
+input {
   width: 100%;
-  padding: 15px 58px 15px 22px;
-  background: #2a2a2a;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
-  color: #ffffff;
+  padding: 14px 50px 14px 16px; /* 50px right padding keeps text from going under the button */
+  background: #2f2f2f;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
   font-size: 16px;
-  outline: none;
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.45);
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  outline: none; /* REMOVES THE YELLOW BORDER */
+  transition: border 0.2s ease;
 }
 
 #user-input:focus {
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white glow instead of yellow */
 }
 
 .send-btn {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 38px;
-  height: 38px;
-  background: #ffffff;
-  color: #121212;
+  position: absolute; /* Positions it relative to .input-area */
+  right: 8px; /* Moves it 8px from the right edge */
+  background: white; 
+  color: black;
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 18px;
-  font-weight: bold;
-  transition: all 0.2s ease;
+  z-index: 2; /* Ensures it stays on top of the input */
 }
-
 .send-btn:hover {
-  background: #e5e5e5;
-  transform: translateY(-50%) scale(1.06);
+    background: #e5e5e5;
+    transform: translateY(-50%) scale(1.1); /* Now it scales from the center */
 }
 
+.send-btn svg {
+  width: 20px;
+  height: 20px;
+}
 .send-btn:active {
   transform: translateY(-50%) scale(0.9);
 }
