@@ -18,13 +18,13 @@ body {
 /* ====================== MAIN CHAT CONTAINER ====================== */
 .chat {
   width: 100%;
-  max-width: 800px; /* Limits width on desktop for readability */
+  max-width: 800px;
   height: 100vh;
   background-color: #212121;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid rgba(255, 255, 255, 0.05);
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative; /* CRITICAL: This keeps the input-container inside the chat box */
+  margin: 0 auto;
 }
 
 /* ====================== HEADER ====================== */
@@ -178,35 +178,50 @@ body {
   z-index: 200;
 }
 
-/* Container for the input and button */
+/* ====================== INPUT AREA ====================== */
+.input-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 24px 28px;
+  background: linear-gradient(transparent, #212121 30%, #212121 100%);
+  z-index: 200;
+}
+
 .input-area {
-  position: relative; /* This is the anchor for the button */
+  position: relative;
   max-width: 768px;
-  width: 95%;
+  width: 100%; /* Changed to 100% since max-width handles it */
   margin: 0 auto;
   display: flex;
   align-items: center;
 }
+
 input {
   width: 100%;
-  padding: 14px 50px 14px 16px; /* 50px right padding keeps text from going under the button */
+  padding: 14px 50px 14px 16px; 
   background: #2f2f2f;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   color: white;
   font-size: 16px;
-  outline: none; /* REMOVES THE YELLOW BORDER */
+  outline: none;
   transition: border 0.2s ease;
 }
 
-#user-input:focus {
-  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white glow instead of yellow */
+/*The ID selector to match your HTML id="input" */
+input:focus {
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .send-btn {
   position: absolute;
-  right: 12px;
-  bottom: 8px; /* Adjust to center vertically */
+  right: 8px;
+  /* Vertically center the button */
+  top: 50%;
+  transform: translateY(-50%);
+  
   background: white;
   color: black;
   border: none;
@@ -217,25 +232,23 @@ input {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10; /* Ensures it is ABOVE the input field */
-  pointer-events: auto; /* Ensures it can receive clicks */
+  z-index: 10;
+  transition: all 0.2s ease;
 }
 
-/* Ensure the input doesn't overlap the button's clickable area */
-input {
-  padding-right: 52px !important; 
-}
 .send-btn:hover {
-    background: #e5e5e5;
-    transform: translateY(-50%) scale(1.1); /* Now it scales from the center */
+  background: #e5e5e5;
+  transform: translateY(-50%) scale(1.05); /* Keep the Y centering during scale */
+}
+
+.send-btn:active {
+  transform: translateY(-50%) scale(0.95);
 }
 
 .send-btn svg {
-  width: 20px;
-  height: 20px;
-}
-.send-btn:active {
-  transform: translateY(-50%) scale(0.9);
+  width: 18px;
+  height: 18px;
+  pointer-events: none; /* Crucial: clicks go through to the button */
 }
 
 /* ====================== TYPING INDICATOR ====================== */

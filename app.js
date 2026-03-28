@@ -168,3 +168,14 @@ document.querySelector('.send-btn').addEventListener('click', function(e) {
   sendMessage();
 });
 
+// Make sure the button works on all devices
+document.addEventListener('DOMContentLoaded', () => {
+    const sendButton = document.querySelector('.send-btn');
+    if (sendButton) {
+        sendButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            sendMessage();
+        });
+    }
+});
+
