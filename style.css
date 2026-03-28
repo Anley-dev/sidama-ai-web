@@ -169,17 +169,6 @@ body {
 
 /* ====================== INPUT AREA ====================== */
 .input-container {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px 24px 28px;
-  background: linear-gradient(transparent, #212121 30%, #212121 100%);
-  z-index: 200;
-}
-
-/* ====================== NEW INPUT AREA (REPLACE OLD ONE) ====================== */
-.input-container {
   position: fixed; 
   bottom: 0;
   left: 50%;
@@ -191,38 +180,41 @@ body {
   z-index: 200;
 }
 
+
 .input-area {
   position: relative;
   width: 100%;
   display: flex;
-  align-items: flex-end; 
-}
-
-textarea {
-  width: 100%;
-  padding: 14px 50px 14px 16px; 
+  align-items: flex-end; /* Keeps arrow at the bottom-right */
   background: #2f2f2f;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  color: white;
-  font-size: 16px; 
-  outline: none;
-  resize: none;
-  font-family: inherit;
-  overflow-y: hidden;
-  min-height: 52px;
-  max-height: 150px;
-  line-height: 1.5;
 }
 
+textarea {
+  flex: 1;
+  padding: 14px 50px 14px 16px; /* 50px right padding protects the arrow area */
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  resize: none;
+  min-height: 52px;
+  max-height: 200px;
+  line-height: 1.5;
+  font-family: inherit;
+  overflow-y: hidden;
+}
 textarea:focus {
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+
 .send-btn {
   position: absolute;
   right: 10px;
-  bottom: 10px;
+  bottom: 10px; /* Locked to the bottom regardless of height */
   background: white;
   color: black;
   border: none;
@@ -234,9 +226,7 @@ textarea:focus {
   justify-content: center;
   cursor: pointer;
   z-index: 10;
-  transition: all 0.2s ease;
 }
-
 /* ====================== TYPING INDICATOR ====================== */
 .typing {
   display: flex;

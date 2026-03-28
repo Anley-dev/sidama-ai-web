@@ -1,32 +1,38 @@
+/* ============================================================
+    Sidama AI - Main Logic
+   ============================================================ */
+
 const input = document.getElementById("input");
 const messages = document.getElementById("messages");
-//  this function to make the box grow
+
+// 1. Function to make the box grow (Link this to oninput in HTML)
 function autoGrow(element) {
   element.style.height = "52px"; 
   element.style.height = (element.scrollHeight) + "px";
 }
 
-//  this handle the "Enter" key and "Send" button
+// 2. Logic: ONLY the Arrow Button sends the message
 document.addEventListener('DOMContentLoaded', () => {
-    const inputField = document.getElementById("input");
     const sendButton = document.getElementById("send-button");
 
-    inputField.addEventListener("keydown", function(e) {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-        this.style.height = "52px";
-      }
-    });
+    if (sendButton) {
+        sendButton.addEventListener("click", () => {
+            sendMessage();
+            // Reset height after sending
+            if (input) {
+                input.style.height = "52px";
+                input.focus();
+            }
+        });
+    }
 
-    sendButton.addEventListener("click", () => {
-      sendMessage();
-      inputField.style.height = "52px";
-      inputField.focus();
-    });
+    /* NOTE: We do NOT add a keydown listener for "Enter". 
+       This allows the Mobile Keyboard 'Return' key to 
+       naturally create a new line inside the textarea.
+    */
 });
 
-// --- 1. Welcome Message on Load ---
+// --- 3. Welcome Message on Load ---
 window.onload = function () {
   messages.innerHTML += `
   <div class="row ai-row">
@@ -36,22 +42,23 @@ window.onload = function () {
   messages.scrollTop = messages.scrollHeight;
 };
 
-// --- 2. Main Send Function ---
+// --- 4. Main Send Function ---
 function sendMessage() {
   let text = input.value.trim();
   if (!text) return;
 
-  // Add user message
+  // Add user message (Supports Multiple Lines)
   messages.innerHTML += `
   <div class="row user-row">
-    <div class="msg user">${text}</div>
+    <div class="msg user">${text.replace(/\n/g, '<br>')}</div>
   </div>`;
 
   input.value = "";
 
-  // the Loading Animation (Matches the CSS .dot classes)
+  // Show Loading Animation with Unique ID
+  const loadingId = "loading-" + Date.now();
   messages.innerHTML += `
-  <div class="row ai-row" id="loading">
+  <div class="row ai-row" id="${loadingId}">
     <div class="avatar">S</div>
     <div class="msg ai">
       <div class="typing">
@@ -66,13 +73,12 @@ function sendMessage() {
 
   // Artificial delay for "Thinking" feel
   setTimeout(() => {
-    // loading dots
-    const loadingElement = document.getElementById("loading");
+    const loadingElement = document.getElementById(loadingId);
     if (loadingElement) loadingElement.remove();
 
+    // Make sure your getReply() function is working!
     let reply = getReply(text);
 
-    //  AI response
     messages.innerHTML += `
     <div class="row ai-row">
       <div class="avatar">S</div>
