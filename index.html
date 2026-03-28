@@ -1,23 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Sidama AI</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidama AI Translator</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="chat">
-  <h2>Sidama AI Translator</h2>
+  <div class="chat-header">
+    <div class="header-info">
+      <div class="status-dot"></div>
+      <h2>Sidama AI</h2>
+    </div>
+    <button class="clear-btn" onclick="clearChat()">New Chat</button>
+  </div>
 
-  <div id="messages"></div>
+  <div id="messages">
+    <div class="row ai-row">
+      <div class="avatar">S</div>
+      <div class="msg ai">Hi! I am Sidama AI. How can I help you translate today?</div>
+    </div>
+  </div>
 
-  <div class="input-area">
-   <input id="input" placeholder="Ask something..." />
-   <button onclick="sendMessage()">Send</button>
-   <button onclick="clearChat()">Clear</button>
+  <div class="input-container">
+    <div class="input-area">
+      <input id="input" placeholder="Message Sidama AI..." autocomplete="off" onkeydown="if(event.key==='Enter') sendMessage()" />
+      <button class="send-btn" onclick="sendMessage()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 11L12 6L17 11M12 18V7"/>
+        </svg>
+      </button>
+    </div>
+    <p class="footer-text">Sidama AI is in Beta. Translations may vary.</p>
   </div>
 </div>
 
 <script src="app.js"></script>
 </body>
 </html>
+
