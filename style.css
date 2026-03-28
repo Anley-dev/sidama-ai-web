@@ -20,11 +20,12 @@ body {
   width: 100%;
   max-width: 800px;
   height: 100vh;
-  background-color: #212121;
   display: flex;
   flex-direction: column;
-  position: relative; /* CRITICAL: This keeps the input-container inside the chat box */
+  position: relative;
   margin: 0 auto;
+  background: #212121;
+  border: 1px solid rgba(255,255,255,0.05);
 }
 
 /* ====================== HEADER ====================== */
