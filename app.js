@@ -112,23 +112,47 @@ const dataset = {
 function getReply(text) {
   text = text.toLowerCase().trim();
 
-  // Exact match first
-  if (dataset[text]) {
-    return dataset[text];
+  // 1. Check for Exact Match (Highest Priority)
+  if (dataset[text]) return dataset[text];
+
+  // 2. Check for Partial Match (e.g., "hello there")
+  for (let key in dataset) {
+    if (text.includes(key)) return dataset[key];
   }
 
-  // Partial match
+  // 3. Smart "Spelling Fix" (Fuzzy Search)
   let bestMatch = null;
+  let minDistance = 3; // Max number of spelling mistakes allowed (usually 2 or 3)
+
   for (let key in dataset) {
-    if (text.includes(key)) {
+    let distance = getLevenshteinDistance(text, key);
+    if (distance < minDistance) {
+      minDistance = distance;
       bestMatch = dataset[key];
-      break;
     }
   }
 
-  if (bestMatch) return bestMatch;
+  if (bestMatch) return `(Did you mean ${Object.keys(dataset).find(k => dataset[k] === bestMatch)}?) \n\n ${bestMatch}`;
 
-  return "I haven't learned that phrase yet. Try simple words like 'hello', 'coffee', or 'thank you'. I am still learning! 😊";
+  return "I haven't learned that phrase yet. I am still learning! 😊";
+}
+
+// Helper function to calculate spelling "distance"
+function getLevenshteinDistance(a, b) {
+  const matrix = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j++) matrix[0][j] = j;
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,      // deletion
+        matrix[i][j - 1] + 1,      // insertion
+        matrix[i - 1][j - 1] + cost // substitution
+      );
+    }
+  }
+  return matrix[a.length][b.length];
 }
 
 // --- 4. Utilities ---
