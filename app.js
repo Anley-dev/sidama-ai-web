@@ -226,11 +226,11 @@ function clearChat() {
 
 // Make sure the button works on all devices
 document.addEventListener('DOMContentLoaded', () => {
-    const sendButton = document.getElementById('send-button');
+  const sendButton = document.getElementById('send-button');
 
-    if (sendButton) {
-        sendButton.addEventListener('click', () => {
-            sendMessage();
-        });
-    }
+  if (sendButton) {
+    sendButton.onclick = function () {
+      sendMessage();
+    };
+  }
 });
