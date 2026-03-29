@@ -139,33 +139,63 @@ const dataset = {
   "twenty": "Lemo",
   "hundred": "Xibbee"
 };
-
+function normalize(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s]/g, "")
+    .trim();
+}
 function getReply(text) {
-  text = text.toLowerCase().trim();
+  text = normalize(text);
 
   // 1. Check for Exact Match (Highest Priority)
   if (dataset[text]) return dataset[text];
 
   // 2. Check for Partial Match (e.g., "hello there")
-  for (let key in dataset) {
-    if (text.includes(key)) return dataset[key];
-  }
+  let matches = [];
 
+for (let key in dataset) {
+  if (text.includes(key)) {
+    matches.push(dataset[key]);
+  }
+}
+
+if (matches.length > 0) {
+  return matches.join(" | ");
+}
   // 3. Smart "Spelling Fix" (Fuzzy Search)
   let bestMatch = null;
   let minDistance = 3; // Max number of spelling mistakes allowed (usually 2 or 3)
 
+  let words = text.split(" ");
+let bestMatch = null;
+let minDistance = 2;
+
+for (let word of words) {
   for (let key in dataset) {
-    let distance = getLevenshteinDistance(text, key);
+    let distance = getLevenshteinDistance(word, key);
     if (distance < minDistance) {
       minDistance = distance;
       bestMatch = dataset[key];
     }
   }
+}
 
-  if (bestMatch) return `(Did you mean ${Object.keys(dataset).find(k => dataset[k] === bestMatch)}?) \n\n ${bestMatch}`;
+if (bestMatch) return bestMatch;
 
-  return "I haven't learned that phrase yet. I am still learning! 😊";
+  return "I am still learning. Try a simpler sentence.";
+}
+let result = [];
+let wordsList = text.split(" ");
+
+for (let word of wordsList) {
+  if (dataset[word]) {
+    result.push(dataset[word]);
+  }
+}
+
+if (result.length > 0) {
+  return result.join(" ");
 }
 
 // Helper function to calculate spelling "distance"
@@ -193,11 +223,7 @@ function clearChat() {
   window.onload(); 
 }
 
-// This ensures the button works even if the HTML attribute fails
-document.querySelector('.send-btn').addEventListener('click', function(e) {
-  e.preventDefault(); // Prevents page refresh
-  sendMessage();
-});
+
 
 // Make sure the button works on all devices
 document.addEventListener('DOMContentLoaded', () => {
