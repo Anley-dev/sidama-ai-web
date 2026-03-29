@@ -146,6 +146,11 @@ function normalize(text) {
     .replace(/[^\w\s]/g, "")
     .trim();
 }
+function saveUnknown(text) {
+  let data = JSON.parse(localStorage.getItem("unknown") || "[]");
+  data.push(text);
+  localStorage.setItem("unknown", JSON.stringify(data));
+}
 function getReply(text) {
   text = normalize(text);
 
@@ -192,7 +197,8 @@ function getReply(text) {
     return result.join(" ");
   }
 
-  return "I am still learning. Try a simpler sentence.";
+  saveUnknown(text);
+return "I am still learning. Try a simpler sentence.";
 }
 
 // Helper function to calculate spelling "distance"
