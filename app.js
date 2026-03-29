@@ -222,19 +222,14 @@ function clearChat() {
   // Optional: Trigger welcome message again
   window.onload(); 
 }
-document.querySelector('.send-btn').addEventListener('click', function(e) {
-  e.preventDefault();
-  sendMessage();
-});
 
 // Make sure the button works on all devices
 document.addEventListener('DOMContentLoaded', () => {
-    const sendButton = document.querySelector('.send-btn');
+    const sendButton = document.getElementById('send-button');
+
     if (sendButton) {
-        sendButton.addEventListener('click', (e) => {
-            e.preventDefault();
+        sendButton.addEventListener('click', () => {
             sendMessage();
         });
     }
 });
-
