@@ -149,54 +149,50 @@ function normalize(text) {
 function getReply(text) {
   text = normalize(text);
 
-  // 1. Check for Exact Match (Highest Priority)
+  // 1. Exact match
   if (dataset[text]) return dataset[text];
 
-  // 2. Check for Partial Match (e.g., "hello there")
+  // 2. Partial match
   let matches = [];
-
-for (let key in dataset) {
-  if (text.includes(key)) {
-    matches.push(dataset[key]);
-  }
-}
-
-if (matches.length > 0) {
-  return matches.join(" | ");
-}
-  // 3. Smart "Spelling Fix" (Fuzzy Search)
-  let bestMatch = null;
-  let minDistance = 3; // Max number of spelling mistakes allowed (usually 2 or 3)
-
-  let words = text.split(" ");
-let bestMatch = null;
-let minDistance = 2;
-
-for (let word of words) {
   for (let key in dataset) {
-    let distance = getLevenshteinDistance(word, key);
-    if (distance < minDistance) {
-      minDistance = distance;
-      bestMatch = dataset[key];
+    if (text.includes(key)) {
+      matches.push(dataset[key]);
     }
   }
-}
+  if (matches.length > 0) {
+    return matches.join(" | ");
+  }
 
-if (bestMatch) return bestMatch;
+  // 3. Fuzzy match
+  let words = text.split(" ");
+  let bestMatch = null;
+  let minDistance = 2;
+
+  for (let word of words) {
+    for (let key in dataset) {
+      let distance = getLevenshteinDistance(word, key);
+      if (distance < minDistance) {
+        minDistance = distance;
+        bestMatch = dataset[key];
+      }
+    }
+  }
+
+  if (bestMatch) return bestMatch;
+
+  // 4. Word fallback
+  let result = [];
+  for (let word of words) {
+    if (dataset[word]) {
+      result.push(dataset[word]);
+    }
+  }
+
+  if (result.length > 0) {
+    return result.join(" ");
+  }
 
   return "I am still learning. Try a simpler sentence.";
-}
-let result = [];
-let wordsList = text.split(" ");
-
-for (let word of wordsList) {
-  if (dataset[word]) {
-    result.push(dataset[word]);
-  }
-}
-
-if (result.length > 0) {
-  return result.join(" ");
 }
 
 // Helper function to calculate spelling "distance"
@@ -224,13 +220,4 @@ function clearChat() {
   window.onload(); 
 }
 
-// Make sure the button works on all devices
-document.addEventListener('DOMContentLoaded', () => {
-  const sendButton = document.getElementById('send-button');
 
-  if (sendButton) {
-    sendButton.onclick = function () {
-      sendMessage();
-    };
-  }
-});
