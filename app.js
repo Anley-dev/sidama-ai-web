@@ -85,7 +85,7 @@ function sendMessage() {
       <div class="avatar">S</div>
       <div class="msg ai">${reply}</div>
     </div>`;
-     reportIssue(reply);
+   
     messages.scrollTop = messages.scrollHeight;
   }, 1200);
 }
@@ -197,8 +197,20 @@ function getReply(text) {
     return result.join(" ");
   }
 
-  saveUnknown(text);
+  sendToForm(text);
 return "I am still learning. Try a simpler sentence.";
+}
+function sendToForm(text) {
+  let formURL = "https://docs.google.com/forms/d/e/1FAIpQLScp8hZRjKsgNMCAtdGjp6jCDyaUs4OrYyQcvm5lz2aSZv993g/formResponse";
+
+  let formData = new URLSearchParams();
+  formData.append("entry.1639978016", text);
+
+  fetch(formURL, {
+    method: "POST",
+    mode: "no-cors",
+    body: formData
+  });
 }
 
 // Helper function to calculate spelling "distance"
