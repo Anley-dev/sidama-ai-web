@@ -227,3 +227,20 @@ function clearChat() {
 }
 
 
+//Sidama AI Feedback form
+function reportIssue(translation = "") {
+  let text = input.value;
+
+  if (!text) {
+    alert("Enter text first");
+    return;
+  }
+
+  let url = "https://docs.google.com/forms/d/e/1FAIpQLScp8hZRjKsgNMCAtdGjp6jCDyaUs4OrYyQcvm5lz2aSZv993g/viewform?usp=pp_url";
+
+  url += "&entry.1639978016=" + encodeURIComponent(text);
+  url += "&entry.117095429=" + encodeURIComponent(translation);
+
+  window.open(url, "_blank");
+}
+
