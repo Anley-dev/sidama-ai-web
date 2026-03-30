@@ -85,7 +85,7 @@ function sendMessage() {
       <div class="avatar">S</div>
       <div class="msg ai">${reply}</div>
     </div>`;
-
+     reportIssue(reply);
     messages.scrollTop = messages.scrollHeight;
   }, 1200);
 }
