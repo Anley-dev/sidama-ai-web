@@ -1,4 +1,4 @@
-//  Sidama AI - Dynamic Logic (Syllabus Powered)
+//  Sidama AI - Dynamic Logic (Syllabus Powered
 
 const input = document.getElementById("input");
 const messages = document.getElementById("messages");
