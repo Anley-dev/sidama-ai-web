@@ -119,4 +119,19 @@ function sendToForm(text) {
 }
 
 // Keep your existing Levenshtein and reporting functions here...
+function clearChat() {
+    const messagesContainer = document.getElementById("messages");
+    messagesContainer.innerHTML = "";
 
+    const welcome = `
+    <div class="row ai-row">
+      <div class="avatar">S</div>
+      <div class="msg ai">Chat cleared. Keereho! How can I help you translate today?</div>
+    </div>`;
+    messagesContainer.innerHTML = welcome;
+
+    if (input) {
+        input.value = "";
+        input.style.height = "52px";
+    }
+}

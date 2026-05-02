@@ -1,8 +1,7 @@
-/* =============================================
-    Fully Responsive & Modern Dark Theme
-   ============================================= */
 
-* {
+/*Fully Responsive & Modern Dark Theme*/
+   
+*{
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -12,20 +11,19 @@ body {
   background-color: #212121; /* Same as chat bg so it looks seamless */
   display: flex;
   justify-content: center;
-  height: 100vh;
-}
+    height: 100vh;
 
-/* ====================== MAIN CHAT CONTAINER ====================== */
+/* Ensure the chat container takes up the full mobile screen */
 .chat {
   width: 100%;
   max-width: 800px;
   height: 100vh;
+  height: -webkit-fill-available; /* Fix for mobile browser address bars */
   display: flex;
   flex-direction: column;
   position: relative;
   margin: 0 auto;
   background: #212121;
-  border: 1px solid rgba(255,255,255,0.05);
 }
 
 /* ====================== HEADER ====================== */
@@ -82,14 +80,13 @@ body {
 /* ====================== MESSAGES AREA ====================== */
 #messages {
   flex: 1;
-  padding: 20px 16px 110px 16px;
+  padding: 20px 16px 120px 16px; /* Increased bottom padding */
   overflow-y: auto;
-  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling for mobile Safari/Chrome */
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-
 /* Custom Scrollbar */
 #messages::-webkit-scrollbar {
   width: 6px;
@@ -143,7 +140,7 @@ body {
 
 .user {
   background-color: #2563eb;
-  border: 1px solid rgba(255, 25background-color: #2563eb;5, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: #ffffff;
   border-bottom-right-radius: 5px;
 }
