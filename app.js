@@ -98,36 +98,33 @@ function sendMessage() {
 function normalize(text) {
   return text.toLowerCase().replace(/[^\w\s\?]/g, "").trim();
 }
-
 function getReply(text) {
-  const original = text;
   const normalizedText = normalize(text);
 
-  // 1. Try Fuzzy Search first (Handles typos and phrases)
   if (fuse) {
     const fuzzyResults = fuse.search(normalizedText);
-    if (fuzzyResults.length > 0 && fuzzyResults[0].score < 0.4) { 
-      // score < 0.4 ensures we don't give a totally random wrong answer
+    
+    // threshold logic: lower means it must be a CLOSER match
+    // 0.35 is usually the 'sweet spot' for quality
+    if (fuzzyResults.length > 0 && fuzzyResults[0].score < 0.35) {
       return fuzzyResults[0].item.sidama;
     }
   }
 
-  // 2. Word-by-word Breakdown (Fallback for combined words)
+  // Word-by-word fallback (only if fuzzy didn't find a strong match)
   let words = normalizedText.split(" ");
   let translated = [];
   words.forEach(word => {
-    // We check the raw dataset for single words
     if (dataset[word]) translated.push(dataset[word]);
   });
 
   if (translated.length > 0) return translated.join(" ");
 
-  // 3. Learning Fallback
-  sendToForm(original);
   return "I haven't learned that phrase yet. I've sent it to my developer to learn!";
 }
 
-  
+
+ 
 function sendToForm(text) {
   let formURL = "https://docs.google.com/forms/d/e/1FAIpQLScp8hZRjKsgNMCAtdGjp6jCDyaUs4OrYyQcvm5lz2aSZv993g/formResponse";
   let formData = new URLSearchParams();
