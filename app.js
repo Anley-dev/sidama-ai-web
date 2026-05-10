@@ -1,23 +1,39 @@
-//  Sidama AI - Dynamic Logic (Syllabus Powered
+//  Sidama AI - Dynamic Logic (Syllabus Powered)
 
 const input = document.getElementById("input");
 const messages = document.getElementById("messages");
-let dataset = {}; // We will fill this from data.json
+let dataset = {}; 
+let fuse; // Add this global variable
 
-// 1. Fetch the big word list from data.json
+// 1. Fetch the big word list from data.json and initialize Fuse.js
 async function loadDataset() {
     try {
         const response = await fetch('./data.json');
         dataset = await response.json();
-        console.log("Sidama AI: 150+ Syllabus words loaded.");
+
+        // Prepare data for Fuzzy Search
+        const searchList = Object.keys(dataset).map(key => ({
+            english: key,
+            sidama: dataset[key]
+        }));
+
+        // Initialize Fuse
+        fuse = new Fuse(searchList, {
+            keys: ['english'],
+            threshold: 0.3, // Great for typos
+            includeScore: true
+        });
+
+        console.log("Sidama AI: Database and Fuzzy Search ready!");
     } catch (error) {
         console.error("Failed to load data.json:", error);
     }
 }
 loadDataset();
 
+
 function autoGrow(element) {
-  element.style.height = "52px"; 
+  element.style.height = "52px";
   element.style.height = (element.scrollHeight) + "px";
 }
 
@@ -78,39 +94,40 @@ function sendMessage() {
   }, 1000);
 }
 
-// --- CORE TRANSLATION ENGINE ---
+//  CORE TRANSLATION ENGINE 
 function normalize(text) {
   return text.toLowerCase().replace(/[^\w\s\?]/g, "").trim();
 }
 
 function getReply(text) {
   const original = text;
-  text = normalize(text);
+  const normalizedText = normalize(text);
 
-  // 1. Exact Phrase Match (The Best Way)
-  if (dataset[text]) return dataset[text];
-
-  // 2. Phrase containing keywords
-  for (let key in dataset) {
-    if (text.length > 3 && text.includes(key)) {
-      return dataset[key];
+  // 1. Try Fuzzy Search first (Handles typos and phrases)
+  if (fuse) {
+    const fuzzyResults = fuse.search(normalizedText);
+    if (fuzzyResults.length > 0 && fuzzyResults[0].score < 0.4) { 
+      // score < 0.4 ensures we don't give a totally random wrong answer
+      return fuzzyResults[0].item.sidama;
     }
   }
 
-  // 3. Word-by-word Breakdown
-  let words = text.split(" ");
+  // 2. Word-by-word Breakdown (Fallback for combined words)
+  let words = normalizedText.split(" ");
   let translated = [];
   words.forEach(word => {
+    // We check the raw dataset for single words
     if (dataset[word]) translated.push(dataset[word]);
   });
 
   if (translated.length > 0) return translated.join(" ");
 
-  // 4. Learning Fallback
+  // 3. Learning Fallback
   sendToForm(original);
-  return "I haven't learned that phrase yet. I've sent it to my developers to study!";
+  return "I haven't learned that phrase yet. I've sent it to my developer to learn!";
 }
 
+  
 function sendToForm(text) {
   let formURL = "https://docs.google.com/forms/d/e/1FAIpQLScp8hZRjKsgNMCAtdGjp6jCDyaUs4OrYyQcvm5lz2aSZv993g/formResponse";
   let formData = new URLSearchParams();
