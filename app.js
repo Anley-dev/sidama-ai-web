@@ -124,13 +124,22 @@ function getReply(text) {
 }
 
 
- 
 function sendToForm(text) {
-  let formURL = "https://docs.google.com/forms/d/e/1FAIpQLScp8hZRjKsgNMCAtdGjp6jCDyaUs4OrYyQcvm5lz2aSZv993g/formResponse";
+  let formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfB2NAnV0ZzL9_Yv7bEx_8vK3G_bL_Zp-X_YOUR_CONVERTED_ID/formResponse";
+  let directURL = "https://docs.google.com/forms/u/0/d/1OAXZapYKRhsUMkN050Dv_4RK1__yLZvvB0YkAwDpSv0/formResponse";
+
   let formData = new URLSearchParams();
   formData.append("entry.1639978016", text);
-  fetch(formURL, { method: "POST", mode: "no-cors", body: formData });
+
+  fetch(directURL, { 
+    method: "POST", 
+    mode: "no-cors", 
+    body: formData 
+  })
+  .then(() => console.log("Word sent successfully to backend!"))
+  .catch(err => console.error("Error sending word:", err));
 }
+
 
 // Keep your existing Levenshtein and reporting functions here...
 function clearChat() {
